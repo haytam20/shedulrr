@@ -7,22 +7,22 @@ import CreateEventDrawer from "@/components/create-event";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Schedulrr",
-  description: " ",
+  title: "Vue d'Ensemble",
+  description: "Plateforme de gestion et planification de formations",
 };
 
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
+      <html lang="fr">
+        <body className={`${inter.className} bg-gray-50 min-h-screen`}>
           <Header />
-          <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+          <main>
             {children}
           </main>
-          <footer className="bg-blue-100 py-12">
-            <div className="container mx-auto px-4 text-center text-gray-600">
-              <p>Made with 💗 by RoadsideCoder</p>
+          <footer className="border-t border-gray-200 bg-white py-4 mt-8">
+            <div className="container mx-auto px-6 text-center text-gray-500 text-sm">
+              <p>© 2025. Tous droits réservés.</p>
             </div>
           </footer>
           <CreateEventDrawer />

@@ -1,7 +1,5 @@
-import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ArrowRight, Calendar, Clock, LinkIcon } from "lucide-react";
 import TestimonialsCarousel from "@/components/testimonials";
 import Link from "next/link";
@@ -9,134 +7,148 @@ import Link from "next/link";
 const features = [
   {
     icon: Calendar,
-    title: "Create Events",
-    description: "Easily set up and customize your event types",
+    title: "Créer des Formations",
+    description: "Créez et personnalisez facilement vos types d'événements",
   },
   {
     icon: Clock,
-    title: "Manage Availability",
-    description: "Define your availability to streamline scheduling",
+    title: "Gérer la Disponibilité",
+    description: "Définissez votre disponibilité pour simplifier la planification",
   },
   {
     icon: LinkIcon,
-    title: "Custom Links",
-    description: "Share your personalized scheduling link",
+    title: "Liens Personnalisés",
+    description: "Partagez votre lien de planification personnalisé",
   },
 ];
 
 const howItWorks = [
-  { step: "Sign Up", description: "Create your free Schedulrr account" },
+  { step: "Inscription", description: "Créez votre compte Vue d'Ensemble gratuit" },
   {
-    step: "Set Availability",
-    description: "Define when you're available for meetings",
+    step: "Définir la Disponibilité",
+    description: "Indiquez quand vous êtes disponible pour des réunions",
   },
   {
-    step: "Share Your Link",
-    description: "Send your scheduling link to clients or colleagues",
+    step: "Partager Votre Lien",
+    description: "Envoyez votre lien à vos clients ou collègues",
   },
   {
-    step: "Get Booked",
-    description: "Receive confirmations for new appointments automatically",
+    step: "Recevoir des Réservations",
+    description: "Recevez automatiquement des confirmations pour les nouveaux rendez-vous",
   },
 ];
 
 const Home = () => {
   return (
-    <main className="container mx-auto px-4 py-16">
+    <main className="bg-gray-50">
       {/* Hero Section */}
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-24">
-        <div className="lg:w-1/2">
-          <h1 className="text-7xl font-extrabold gradient-title pb-6">
-            Simplify Your Scheduling
-          </h1>
-          <p className="text-xl text-gray-600 mb-10">
-            Schedulrr helps you manage your time effectively. Create events, set
-            your availability, and let others book time with you seamlessly.
-          </p>
-          <Link href={"/dashboard"}>
-            <Button size="lg" className="text-lg">
-              Get Started <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-        </div>
-        <div className="lg:w-1/2 flex justify-center">
-          <div className="relative w-full max-w-md aspect-square">
-            <Image
-              src="/poster.png"
-              alt="Scheduling illustration"
-              layout="fill"
-              objectFit="contain"
-            />
+      <div className="bg-white shadow-sm border-b border-gray-200 py-12">
+        <div className="px-4 lg:px-8 mx-auto max-w-7xl">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div className="lg:w-1/2">
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                Simplifiez Votre Planification
+              </h1>
+              <p className="text-gray-600 mb-8">
+                Vue d'Ensemble vous aide à gérer votre temps efficacement. Créez des événements, définissez
+                votre disponibilité et permettez aux autres de réserver du temps avec vous en toute transparence.
+              </p>
+              <Link href="/dashboard">
+                <Button className="bg-gray-900 hover:bg-orange-500 text-white rounded-none px-4 py-2 font-medium">
+                  Commencer <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+            <div className="lg:w-1/2 flex justify-center">
+              <div className="relative w-full max-w-md aspect-square">
+                <Image
+                  src="/poster.png"
+                  alt="Illustration de planification"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Key Features Section */}
-      <div className="mb-24">
-        <h2 className="text-3xl font-bold text-center mb-12 text-blue-600">
-          Key Features
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <feature.icon className="w-12 h-12 text-blue-500 mb-4 mx-auto" />
-                <CardTitle className="text-center text-blue-600">
-                  {feature.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center text-gray-600">
-                  {feature.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+      <div className="bg-white shadow-sm border-b border-gray-200 py-12">
+        <div className="px-4 lg:px-8 mx-auto max-w-7xl">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-bold">Fonctionnalités Clés</h2>
+            <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium">
+              Découvrir
+            </button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <div key={index} className="border border-gray-200 p-4">
+                <div className="flex items-start mb-3">
+                  <feature.icon className="w-5 h-5 text-gray-500 mr-3 mt-1" />
+                  <h3 className="text-lg font-semibold text-gray-900">{feature.title}</h3>
+                </div>
+                <p className="text-gray-600 text-sm">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* How It Works Section */}
+      <div className="bg-white shadow-sm border-b border-gray-200 py-12">
+        <div className="px-4 lg:px-8 mx-auto max-w-7xl">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-bold">Comment Ça Marche</h2>
+            <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium">
+              Découvrir
+            </button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {howItWorks.map((step, index) => (
+              <div key={index} className="border border-gray-200 p-4">
+                <div className="flex items-center mb-3">
+                  <div className="bg-gray-100 w-8 h-8 flex items-center justify-center mr-3">
+                    <span className="text-gray-700 font-medium">{index + 1}</span>
+                  </div>
+                  <h3 className="font-semibold text-gray-900">{step.step}</h3>
+                </div>
+                <p className="text-gray-600 text-sm">{step.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Testimonials Section */}
-      <div className="mb-24">
-        <h2 className="text-3xl font-bold text-center mb-12 text-blue-600">
-          What Our Users Say
-        </h2>
-        <TestimonialsCarousel />
-      </div>
-
-      {/* How It Works Section */}
-      <div className="mb-24">
-        <h2 className="text-3xl font-bold text-center mb-12 text-blue-600">
-          How It Works
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {howItWorks.map((step, index) => (
-            <div key={index} className="text-center">
-              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <span className="text-blue-600 font-bold text-xl">
-                  {index + 1}
-                </span>
-              </div>
-              <h3 className="font-semibold text-lg mb-2">{step.step}</h3>
-              <p className="text-gray-600">{step.description}</p>
-            </div>
-          ))}
+      <div className="bg-white shadow-sm border-b border-gray-200 py-12">
+        <div className="px-4 lg:px-8 mx-auto max-w-7xl">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-bold">Évaluations</h2>
+            <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium">
+              Découvrir
+            </button>
+          </div>
+          <TestimonialsCarousel />
         </div>
       </div>
 
       {/* CTA Section */}
-      <div className="bg-blue-600 text-white rounded-lg p-8 text-center">
-        <h2 className="text-3xl font-bold mb-4">
-          Ready to Simplify Your Scheduling?
-        </h2>
-        <p className="text-xl mb-6">
-          Join thousands of professionals who trust Schedulrr for efficient time
-          management.
-        </p>
-        <Link href={"/dashboard"}>
-          <Button size="lg" variant="secondary" className="text-blue-600">
-            Start For Free <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </Link>
+      <div className="bg-white shadow-sm border-b border-gray-200 py-12">
+        <div className="px-4 lg:px-8 mx-auto max-w-7xl text-center">
+          <h2 className="text-2xl font-bold mb-4 text-gray-900">
+            Prêt à Simplifier Votre Planification?
+          </h2>
+          <p className="text-gray-600 mb-6">
+            Rejoignez des milliers de professionnels qui font confiance à Vue d'Ensemble pour une gestion efficace du temps.
+          </p>
+          <Link href="/dashboard">
+            <Button className="bg-orange-500 hover:bg-orange-600 rounded-none text-white px-6 py-3 font-medium">
+              Commencer Gratuitement <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
       </div>
     </main>
   );

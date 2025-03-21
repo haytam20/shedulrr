@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { cancelMeeting } from "@/actions/meetings";
 import { useRouter } from "next/navigation";
 import useFetch from "@/hooks/use-fetch";
+import { X } from "lucide-react";
 
-export default function CancelMeetingButton({ meetingId }) {
+export default function CancelMeetingButton({ meetingId, className }) {
   const router = useRouter();
 
   const { loading, error, fn: fnCancelMeeting } = useFetch(cancelMeeting);
@@ -18,11 +19,25 @@ export default function CancelMeetingButton({ meetingId }) {
   };
 
   return (
-    <div className="flex flex-col gap-1">
-      <Button variant="destructive" onClick={handleCancel} disabled={loading}>
-        {loading ? "Canceling..." : "Cancel Meeting"}
+    <div className="flex flex-col gap-1 w-full">
+      <Button 
+        variant="destructive" 
+        onClick={handleCancel} 
+        disabled={loading}
+        className={`bg-orange-500 hover:bg-orange-600 text-white border-none flex items-center justify-center gap-2 rounded-none ${className || ""}`} // Removed rounded-md
+      >
+        {loading ? (
+          "Canceling..."
+        ) : (
+          <>
+            <X className="h-4 w-4" />
+            <span>Cancel Meeting</span>
+          </>
+        )}
       </Button>
-      {error && <span className="text-red-500 text-sm">{error.message}</span>}
+      {error && (
+        <span className="text-red-500 text-sm text-center">{error.message}</span>
+      )}
     </div>
   );
 }
