@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import Link from "next/link"; // Added Link import
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Header from "@/components/header";
@@ -20,9 +21,22 @@ export default function RootLayout({ children }) {
           <main>
             {children}
           </main>
-          <footer className="border-t border-gray-200 bg-white py-4 mt-8">
-            <div className="container mx-auto px-6 text-center text-gray-500 text-sm">
-              <p>© 2025. Tous droits réservés.</p>
+          <footer className="w-full bg-black text-white py-4">
+            <div className="container mx-auto px-6 flex justify-between items-center">
+              <div className="flex items-center space-x-8">
+                <span>© Orange 2025</span>
+                <Link href="/accessibility" className="hover:underline">
+                  Accessibility statement
+                </Link>
+                <Link href="/contact" className="hover:underline">
+                  Contact
+                </Link>
+              </div>
+              <div>
+                <Link href="#" className="flex items-center hover:underline">
+                  Link <span className="ml-1">↗</span>
+                </Link>
+              </div>
             </div>
           </footer>
           <CreateEventDrawer />
