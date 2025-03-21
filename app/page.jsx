@@ -42,7 +42,7 @@ const Home = () => {
   return (
     <main className="bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-white shadow-sm border-b border-gray-200 py-12">
+      <section className="bg-white shadow-sm border-b border-gray-200 py-12">
         <div className="px-4 lg:px-8 mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="lg:w-1/2">
@@ -53,7 +53,7 @@ const Home = () => {
                 Vue d'Ensemble vous aide à gérer votre temps efficacement. Créez des événements, définissez
                 votre disponibilité et permettez aux autres de réserver du temps avec vous en toute transparence.
               </p>
-              <Link href="/dashboard">
+              <Link href="/dashboard" passHref>
                 <Button className="bg-gray-900 hover:bg-orange-500 text-white rounded-none px-4 py-2 font-medium">
                   Commencer <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -66,21 +66,24 @@ const Home = () => {
                   alt="Illustration de planification"
                   fill
                   className="object-contain"
+                  priority // Prioritize loading this image
                 />
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Key Features Section */}
-      <div className="bg-white shadow-sm border-b border-gray-200 py-12">
+      <section className="bg-white shadow-sm border-b border-gray-200 py-12">
         <div className="px-4 lg:px-8 mx-auto max-w-7xl">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold">Fonctionnalités Clés</h2>
-            <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium">
-              Découvrir
-            </button>
+            <Link href="/features" passHref>
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium">
+                Découvrir
+              </Button>
+            </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {features.map((feature, index) => (
@@ -94,16 +97,18 @@ const Home = () => {
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* How It Works Section */}
-      <div className="bg-white shadow-sm border-b border-gray-200 py-12">
+      <section className="bg-white shadow-sm border-b border-gray-200 py-12">
         <div className="px-4 lg:px-8 mx-auto max-w-7xl">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold">Comment Ça Marche</h2>
-            <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium">
-              Découvrir
-            </button>
+            <Link href="/how-it-works" passHref>
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium">
+                Découvrir
+              </Button>
+            </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {howItWorks.map((step, index) => (
@@ -119,23 +124,25 @@ const Home = () => {
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Testimonials Section */}
-      <div className="bg-white shadow-sm border-b border-gray-200 py-12">
+      <section className="bg-white shadow-sm border-b border-gray-200 py-12">
         <div className="px-4 lg:px-8 mx-auto max-w-7xl">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold">Évaluations</h2>
-            <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium">
-              Découvrir
-            </button>
+            <Link href="/testimonials" passHref>
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium">
+                Découvrir
+              </Button>
+            </Link>
           </div>
           <TestimonialsCarousel />
         </div>
-      </div>
+      </section>
 
       {/* CTA Section */}
-      <div className="bg-white shadow-sm border-b border-gray-200 py-12">
+      <section className="bg-white shadow-sm border-b border-gray-200 py-12">
         <div className="px-4 lg:px-8 mx-auto max-w-7xl text-center">
           <h2 className="text-2xl font-bold mb-4 text-gray-900">
             Prêt à Simplifier Votre Planification?
@@ -143,13 +150,13 @@ const Home = () => {
           <p className="text-gray-600 mb-6">
             Rejoignez des milliers de professionnels qui font confiance à Vue d'Ensemble pour une gestion efficace du temps.
           </p>
-          <Link href="/dashboard">
+          <Link href="/dashboard" passHref>
             <Button className="bg-orange-500 hover:bg-orange-600 rounded-none text-white px-6 py-3 font-medium">
               Commencer Gratuitement <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
         </div>
-      </div>
+      </section>
     </main>
   );
 };
