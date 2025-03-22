@@ -10,15 +10,15 @@ import {
 import { Calendar, Clock, Video } from "lucide-react";
 import CancelMeetingButton from "./cancel-meeting";
 
-export default function MeetingList({ meetings, type }) {
+export default function ListeReunions({ meetings, type }) {
   if (meetings.length === 0) {
-    return <p className="text-gray-500 text-center py-8">No {type} meetings found.</p>;
+    return <p className="text-gray-500 text-center py-8">Aucune réunion {type} trouvée.</p>;
   }
 
   const getStatusBadge = (meeting) => {
-    // Determine status based on meeting type or date
+    // Déterminer le statut en fonction du type de réunion ou de la date
     const isUpcoming = type === "upcoming";
-    const status = isUpcoming ? "En Cours" : "Terminer";
+    const status = isUpcoming ? "En Cours" : "Terminé";
     
     return (
       <span
@@ -48,7 +48,7 @@ export default function MeetingList({ meetings, type }) {
               <div>
                 <CardTitle className="text-xl font-medium text-gray-800">{meeting.event.title}</CardTitle>
                 <CardDescription className="text-sm text-gray-500">
-                  with {meeting.name}
+                  avec {meeting.name}
                 </CardDescription>
               </div>
             </div>
@@ -70,13 +70,13 @@ export default function MeetingList({ meetings, type }) {
             <div className="space-y-2 text-sm">
               <div className="flex items-center">
                 <Calendar className="mr-2 h-4 w-4 text-gray-400" />
-                <span className="text-gray-700">{format(new Date(meeting.startTime), "MMMM d, yyyy")}</span>
+                <span className="text-gray-700">{format(new Date(meeting.startTime), "d MMMM yyyy")}</span>
               </div>
               <div className="flex items-center">
                 <Clock className="mr-2 h-4 w-4 text-gray-400" />
                 <span className="text-gray-700">
-                  {format(new Date(meeting.startTime), "h:mm a")} -{" "}
-                  {format(new Date(meeting.endTime), "h:mm a")}
+                  {format(new Date(meeting.startTime), "HH:mm")} -{" "}
+                  {format(new Date(meeting.endTime), "HH:mm")}
                 </span>
               </div>
               {meeting.meetLink && (
@@ -88,7 +88,7 @@ export default function MeetingList({ meetings, type }) {
                     rel="noopener noreferrer"
                     className="text-orange-500 hover:text-orange-600 hover:underline"
                   >
-                    Join Meeting
+                    Rejoindre la réunion
                   </a>
                 </div>
               )}

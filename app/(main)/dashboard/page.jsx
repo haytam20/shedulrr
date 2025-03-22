@@ -15,7 +15,7 @@ import { getLatestUpdates } from "@/actions/dashboard";
 import { format } from "date-fns";
 import { Copy, Check } from "lucide-react";
 
-export default function DashboardPage() {
+export default function PageDashboard() {
   const { user, isLoaded } = useUser();
   const [copied, setCopied] = useState(false);
 
@@ -29,7 +29,7 @@ export default function DashboardPage() {
     resolver: zodResolver(usernameSchema),
   });
 
-  // Watch the username field for copy functionality
+  // Surveiller le champ "username" pour la fonctionnalité de copie
   const username = watch("username");
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function DashboardPage() {
 
   return (
     <div className="p-3 md:p-6 bg-gray-50">
-      {/* Data update timestamp */}
+      {/* Horodatage de la mise à jour des données */}
       <div className="flex flex-wrap justify-between items-center mb-4 md:mb-6">
         <div className="flex items-center text-xs sm:text-sm text-gray-600">
           <span>Données actualisées le {format(new Date(), "dd/MM/yyyy à HH:mm")}</span>
@@ -81,7 +81,7 @@ export default function DashboardPage() {
         <Card className="border-l-4 border-orange-500 shadow-sm">
           <CardHeader className="pb-2 px-3 sm:px-6">
             <div className="flex items-center">
-              <CardTitle className="text-lg md:text-xl">Welcome, {user?.firstName}!</CardTitle>
+              <CardTitle className="text-lg md:text-xl">Bienvenue, {user?.firstName} !</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="px-3 sm:px-6">
@@ -93,10 +93,10 @@ export default function DashboardPage() {
                       <table className="w-full">
                         <thead>
                           <tr className="text-left text-gray-500 text-xs sm:text-sm border-b">
-                            <th className="pb-2 pl-3 sm:pl-0 font-medium">Meeting</th>
+                            <th className="pb-2 pl-3 sm:pl-0 font-medium">Réunion</th>
                             <th className="pb-2 font-medium hidden sm:table-cell">Date</th>
-                            <th className="pb-2 font-medium hidden md:table-cell">With</th>
-                            <th className="pb-2 pr-3 sm:pr-0 font-medium">Status</th>
+                            <th className="pb-2 font-medium hidden md:table-cell">Avec</th>
+                            <th className="pb-2 pr-3 sm:pr-0 font-medium">Statut</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -114,12 +114,12 @@ export default function DashboardPage() {
                           ))}
                         </tbody>
                       </table>
-                      {/* Mobile-only row details for hidden columns */}
+                      {/* Détails supplémentaires pour les colonnes cachées sur mobile */}
                       <div className="sm:hidden space-y-2 mt-2">
                         {upcomingMeetings?.map((meeting) => (
                           <div key={`mobile-${meeting.id}`} className="text-xs px-3 text-gray-500">
                             <div><span className="font-medium">Date:</span> {format(new Date(meeting.startTime), "MMM d, yyyy h:mm a")}</div>
-                            <div><span className="font-medium">With:</span> {meeting.name}</div>
+                            <div><span className="font-medium">Avec:</span> {meeting.name}</div>
                           </div>
                         ))}
                       </div>
@@ -134,7 +134,7 @@ export default function DashboardPage() {
                           <span className="text-base sm:text-lg font-bold">!</span>
                         </div>
                       </div>
-                      <p className="text-sm sm:text-base">No upcoming meetings</p>
+                      <p className="text-sm sm:text-base">Aucune réunion à venir</p>
                     </div>
                   )}
                 </div>
@@ -150,7 +150,7 @@ export default function DashboardPage() {
         <Card className="shadow-sm">
           <CardHeader className="pb-2 px-3 sm:px-6">
             <div className="flex flex-wrap justify-between items-center gap-2">
-              <CardTitle className="text-base sm:text-lg font-medium">Your Unique Link</CardTitle>
+              <CardTitle className="text-base sm:text-lg font-medium">Votre Lien Unique</CardTitle>
               <button className="px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">
                 Info
               </button>
@@ -165,14 +165,14 @@ export default function DashboardPage() {
                   </span>
                   <Input 
                     {...register("username")} 
-                    placeholder="username" 
+                    placeholder="nom d'utilisateur" 
                     className="border-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 text-xs sm:text-sm"
                   />
                   <button 
                     type="button"
                     onClick={copyToClipboard}
                     className="p-1 ml-auto text-gray-500 hover:text-gray-800 rounded-md hover:bg-gray-100 transition-colors"
-                    aria-label="Copy link"
+                    aria-label="Copier le lien"
                   >
                     {copied ? <Check size={16} className="text-green-500" /> : <Copy size={16} />}
                   </button>
@@ -194,7 +194,7 @@ export default function DashboardPage() {
                 disabled={loading}
                 className="w-full bg-gray-900 hover:bg-orange-500 rounded-none text-white text-xs sm:text-sm"
               >
-                Update Username
+                Mettre à jour le nom d'utilisateur
               </Button>
             </form>
           </CardContent>

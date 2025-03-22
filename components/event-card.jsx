@@ -15,7 +15,7 @@ import { ExternalLink, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function EventCard({ event, username, isPublic = false }) {
+export default function CarteEvenement({ event, username, isPublic = false }) {
   const [isCopied, setIsCopied] = useState(false);
   const router = useRouter();
 
@@ -25,16 +25,16 @@ export default function EventCard({ event, username, isPublic = false }) {
         `${window?.location.origin}/${username}/${event.id}`
       );
       setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+      setTimeout(() => setIsCopied(false), 2000); // Réinitialiser après 2 secondes
     } catch (err) {
-      console.error("Failed to copy: ", err);
+      console.error("Échec de la copie : ", err);
     }
   };
 
   const { loading, fn: fnDeleteEvent } = useFetch(deleteEvent);
 
   const handleDelete = async () => {
-    if (window?.confirm("Are you sure you want to delete this event?")) {
+    if (window?.confirm("Êtes-vous sûr de vouloir supprimer cet événement ?")) {
       await fnDeleteEvent(event.id);
       router.refresh();
     }
@@ -50,15 +50,15 @@ export default function EventCard({ event, username, isPublic = false }) {
   };
 
   const getStatusBadge = () => {
-    // Determine status based on event data
-    const status = event.isPrivate ? "Replanifier" : "En Cours";
+    // Déterminer le statut en fonction des données de l'événement
+    const status = event.isPrivate ? "Replanifié" : "En Cours";
     
     return (
       <span
         className={`px-2 py-1 text-xs rounded-md ${
           status === "En Cours"
             ? "bg-orange-100 text-orange-500"
-            : status === "Terminer"
+            : status === "Terminé"
             ? "bg-green-100 text-green-500"
             : "bg-gray-100 text-gray-500"
         }`}
@@ -81,7 +81,7 @@ export default function EventCard({ event, username, isPublic = false }) {
           <div>
             <CardTitle className="text-xl font-medium text-gray-800">{event.title}</CardTitle>
             <CardDescription className="text-sm text-gray-500">
-              {event.duration} mins | {event._count.bookings} Bookings
+              {event.duration} mins | {event._count.bookings} Réservations
             </CardDescription>
           </div>
         </div>
@@ -105,7 +105,7 @@ export default function EventCard({ event, username, isPublic = false }) {
             className="flex items-center justify-center flex-1 text-sm border-gray-300 hover:bg-gray-50 rounded-none"
           >
             <ExternalLink className="mr-2 h-4 w-4" />
-            {isCopied ? "Copied!" : "Copy Link"}
+            {isCopied ? "Copié !" : "Copier le lien"}
           </Button>
           <Button
             variant="destructive"
@@ -114,7 +114,7 @@ export default function EventCard({ event, username, isPublic = false }) {
             className="flex items-center justify-center flex-1 text-sm bg-orange-500 hover:bg-orange-600 text-white border-none rounded-none"
           >
             <Trash2 className="mr-2 h-4 w-4" />
-            {loading ? "Deleting..." : "Delete"}
+            {loading ? "Suppression en cours..." : "Supprimer"}
           </Button>
         </CardFooter>
       )}
