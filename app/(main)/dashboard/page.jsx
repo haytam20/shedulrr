@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,18 +13,24 @@ import useFetch from "@/hooks/use-fetch";
 import { usernameSchema } from "@/app/lib/validators";
 import { getLatestUpdates } from "@/actions/dashboard";
 import { format } from "date-fns";
+import { Copy, Check } from "lucide-react";
 
 export default function DashboardPage() {
   const { user, isLoaded } = useUser();
+  const [copied, setCopied] = useState(false);
 
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(usernameSchema),
   });
+
+  // Watch the username field for copy functionality
+  const username = watch("username");
 
   useEffect(() => {
     setValue("username", user?.username);
@@ -45,6 +51,16 @@ export default function DashboardPage() {
 
   const onSubmit = async (data) => {
     await fnUpdateUsername(data.username);
+  };
+
+  const copyToClipboard = () => {
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+    const fullUrl = `${baseUrl}/${username}`;
+    
+    navigator.clipboard.writeText(fullUrl).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   };
 
   return (
@@ -152,6 +168,14 @@ export default function DashboardPage() {
                     placeholder="username" 
                     className="border-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 p-0 text-xs sm:text-sm"
                   />
+                  <button 
+                    type="button"
+                    onClick={copyToClipboard}
+                    className="p-1 ml-auto text-gray-500 hover:text-gray-800 rounded-md hover:bg-gray-100 transition-colors"
+                    aria-label="Copy link"
+                  >
+                    {copied ? <Check size={16} className="text-green-500" /> : <Copy size={16} />}
+                  </button>
                 </div>
                 {errors.username && (
                   <p className="text-red-500 text-xs sm:text-sm mt-1">

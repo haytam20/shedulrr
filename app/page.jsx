@@ -80,7 +80,7 @@ const Home = () => {
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold">Fonctionnalités Clés</h2>
             <Link href="/features" passHref>
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium">
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-none px-4 py-2 text-sm font-medium">
                 Découvrir
               </Button>
             </Link>
@@ -105,7 +105,7 @@ const Home = () => {
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold">Comment Ça Marche</h2>
             <Link href="/how-it-works" passHref>
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium">
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-none px-4 py-2 text-sm font-medium">
                 Découvrir
               </Button>
             </Link>
@@ -132,7 +132,7 @@ const Home = () => {
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold">Évaluations</h2>
             <Link href="/testimonials" passHref>
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium">
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-none px-4 py-2 text-sm font-medium">
                 Découvrir
               </Button>
             </Link>
@@ -151,7 +151,7 @@ const Home = () => {
             Rejoignez des milliers de professionnels qui font confiance à Vue d'Ensemble pour une gestion efficace du temps.
           </p>
           <Link href="/dashboard" passHref>
-            <Button className="bg-orange-500 hover:bg-orange-600 rounded-none text-white px-6 py-3 font-medium">
+            <Button className="bg-gray-900 hover:bg-orange-500 rounded-none text-white px-6 py-3 font-medium">
               Commencer Gratuitement <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>

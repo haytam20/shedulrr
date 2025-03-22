@@ -7,11 +7,12 @@ import { BarLoader } from "react-spinners";
 import { useUser } from "@clerk/nextjs";
 
 const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: BarChart },
-  { href: "/events", label: "Events", icon: Calendar },
-  { href: "/meetings", label: "Meetings", icon: Users },
-  { href: "/availability", label: "Availability", icon: Clock },
+  { href: "/dashboard", label: "Tableau de bord", icon: BarChart },
+  { href: "/events", label: "Événements", icon: Calendar },
+  { href: "/meetings", label: "Réunions", icon: Users },
+  { href: "/availability", label: "Disponibilité", icon: Clock },
 ];
+
 
 // Reusable components that match the design in the image
 export function MetricCard({ icon: Icon, title, value }) {

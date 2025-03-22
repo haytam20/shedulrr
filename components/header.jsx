@@ -12,15 +12,16 @@ async function Header() {
   
   return (
     <header className="w-full bg-black text-white flex items-center justify-between p-4">
-      <div className="flex items-center space-x-3">
-        <div className="w-12 h-12 bg-orange-500 flex items-center justify-center">
-          <span className="text-white font-bold">orange</span>
-        </div>
-        <div className="flex flex-col">
-          <h1 className="text-xl font-bold">Orange</h1>
-          <h2 className="text-lg">Digital Center Maroc</h2>
-        </div>
+   <a href="/" className="flex items-center space-x-3">
+      <div className="w-12 h-12 bg-orange-500 flex items-center justify-center">
+        <span className="text-white font-bold">orange</span>
       </div>
+      <div className="flex flex-col">
+        <h1 className="text-xl font-bold">Orange</h1>
+        <h2 className="text-lg">Digital Center Maroc</h2>
+      </div>
+    </a>
+
       
       <div className="flex items-center gap-2">
       <Link href="/events?create=true">
