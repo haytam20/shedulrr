@@ -126,37 +126,9 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="bg-white shadow-sm border-b border-gray-200 py-12">
-        <div className="px-4 lg:px-8 mx-auto max-w-7xl">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold">Évaluations</h2>
-            <Link href="/testimonials" passHref>
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-none px-4 py-2 text-sm font-medium">
-                Découvrir
-              </Button>
-            </Link>
-          </div>
-          <TestimonialsCarousel />
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-white shadow-sm border-b border-gray-200 py-12">
-        <div className="px-4 lg:px-8 mx-auto max-w-7xl text-center">
-          <h2 className="text-2xl font-bold mb-4 text-gray-900">
-            Prêt à Simplifier Votre Planification?
-          </h2>
-          <p className="text-gray-600 mb-6">
-            Rejoignez des milliers de professionnels qui font confiance à Vue d'Ensemble pour une gestion efficace du temps.
-          </p>
-          <Link href="/dashboard" passHref>
-            <Button className="bg-gray-900 hover:bg-orange-500 rounded-none text-white px-6 py-3 font-medium">
-              Commencer Gratuitement <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
-        </div>
-      </section>
+     
+     
+      
     </main>
   );
 };
