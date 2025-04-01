@@ -13,8 +13,6 @@ const navItems = [
   { href: "/availability", label: "Disponibilité", icon: Clock },
 ];
 
-
-// Reusable components that match the design in the image
 export function MetricCard({ icon: Icon, title, value }) {
   return (
     <div className="p-4 border border-gray-200 rounded-md bg-white">
@@ -39,7 +37,7 @@ export function ContentCard({ title, actionLabel, actionUrl, children }) {
         {actionLabel && (
           <Link
             href={actionUrl || "#"}
-            className="bg-[#ff6b00] text-white px-4 py-2 rounded-md text-sm font-medium"
+            className="bg-[#5F9EE9] hover:bg-[#4A8BD6] text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
           >
             {actionLabel}
           </Link>
@@ -54,10 +52,10 @@ export function ActionButton({ label, primary = false, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`px-3 py-1 rounded-md text-xs font-medium ${
+      className={`px-3 py-1 rounded-md text-xs font-medium transition-colors duration-200 ${
         primary 
-          ? "bg-[#ff6b00] text-white" 
-          : "bg-black text-white"
+          ? "bg-[#5F9EE9] hover:bg-[#4A8BD6] text-white" 
+          : "bg-gray-800 hover:bg-gray-700 text-white"
       }`}
     >
       {label}
@@ -113,7 +111,7 @@ export function DataTable({ columns, data, actionLabel = "Accéder" }) {
                 } else if (key === "action") {
                   return (
                     <td key={cellIdx} className="px-4 py-3 text-sm">
-                      <ActionButton label={actionLabel} />
+                      <ActionButton label={actionLabel} primary />
                     </td>
                   );
                 }
@@ -145,17 +143,14 @@ export function StatCard({ title, value }) {
   );
 }
 
-// Main layout component
 export default function AppLayout({ children }) {
   const pathname = usePathname();
   const { isLoaded } = useUser();
 
   return (
     <>
-      {!isLoaded && <BarLoader width={"100%"} color="#ff6b00" />}
+      {!isLoaded && <BarLoader width={"100%"} color="#5F9EE9" />}
       <div className="flex flex-col h-screen">
-        
-
         <div className="flex flex-1 overflow-hidden">
           {/* Sidebar for medium screens and up */}
           <aside className="hidden md:block w-64 bg-white border-r border-gray-200">
@@ -166,7 +161,7 @@ export default function AppLayout({ children }) {
                     <Link
                       href={item.href}
                       className={`flex items-center px-4 py-4 text-gray-700 hover:bg-gray-50 ${
-                        pathname === item.href ? "border-l-4 border-[#ff6b00] bg-gray-50" : ""
+                        pathname === item.href ? "border-l-4 border-[#5F9EE9] bg-gray-50" : ""
                       }`}
                     >
                       <item.icon className="w-5 h-5 mr-3 text-gray-500" />
@@ -192,7 +187,7 @@ export default function AppLayout({ children }) {
                 <Link
                   href={item.href}
                   className={`flex flex-col items-center py-2 px-4 ${
-                    pathname === item.href ? "text-[#ff6b00]" : "text-gray-600"
+                    pathname === item.href ? "text-[#5F9EE9]" : "text-gray-600"
                   }`}
                 >
                   <item.icon className="w-6 h-6" />

@@ -57,7 +57,7 @@ export default function CarteEvenement({ event, username, isPublic = false }) {
       <span
         className={`px-2 py-1 text-xs rounded-md ${
           status === "En Cours"
-            ? "bg-orange-100 text-orange-500"
+            ? "bg-orange-100 text-[#F7B84B]"
             : status === "Terminé"
             ? "bg-green-100 text-green-500"
             : "bg-gray-100 text-gray-500"
@@ -70,17 +70,17 @@ export default function CarteEvenement({ event, username, isPublic = false }) {
 
   return (
     <Card
-      className="flex flex-col justify-between cursor-pointer border border-gray-200 rounded-md shadow-sm hover:shadow-md transition-shadow"
+      className="flex flex-col justify-between cursor-pointer border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 active:scale-95"
       onClick={handleCardClick}
     >
       <CardHeader className="pb-2">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+          <div className="w-12 h-12 bg-[#5F9EE9] text-white rounded-full flex items-center justify-center font-medium">
             {event.title.charAt(0)}
           </div>
           <div>
-            <CardTitle className="text-xl font-medium text-gray-800">{event.title}</CardTitle>
-            <CardDescription className="text-sm text-gray-500">
+            <CardTitle className="text-xl font-semibold text-[#2A3142]">{event.title}</CardTitle>
+            <CardDescription className="text-sm text-[#808487]">
               {event.duration} mins | {event._count.bookings} Réservations
             </CardDescription>
           </div>
@@ -88,21 +88,21 @@ export default function CarteEvenement({ event, username, isPublic = false }) {
       </CardHeader>
       <CardContent className="pb-4">
         <div className="flex justify-between items-center mb-3">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-[#808487]">
             {new Date().toLocaleDateString("fr-FR")}
           </span>
           {getStatusBadge()}
         </div>
-        <p className="text-sm text-gray-700">
+        <p className="text-sm text-[#2A3142]">
           {event.description.substring(0, event.description.indexOf("."))}.
         </p>
       </CardContent>
       {!isPublic && (
-        <CardFooter className="flex gap-2 pt-2 border-t border-gray-100">
+        <CardFooter className="flex gap-2 pt-2 border-t border-gray-200">
           <Button
             variant="outline"
             onClick={handleCopy}
-            className="flex items-center justify-center flex-1 text-sm border-gray-300 hover:bg-gray-50 rounded-none"
+            className="flex items-center justify-center flex-1 text-sm border-[#5F9EE9] text-[#5F9EE9] hover:bg-[#5F9EE9] hover:text-white transition-colors duration-200 rounded-md"
           >
             <ExternalLink className="mr-2 h-4 w-4" />
             {isCopied ? "Copié !" : "Copier le lien"}
@@ -111,7 +111,7 @@ export default function CarteEvenement({ event, username, isPublic = false }) {
             variant="destructive"
             onClick={handleDelete}
             disabled={loading}
-            className="flex items-center justify-center flex-1 text-sm bg-orange-500 hover:bg-orange-600 text-white border-none rounded-none"
+            className="flex items-center justify-center flex-1 text-sm bg-[#F7B84B] hover:bg-[#E9547B] text-white border-none transition-colors duration-200 rounded-md"
           >
             <Trash2 className="mr-2 h-4 w-4" />
             {loading ? "Suppression en cours..." : "Supprimer"}
