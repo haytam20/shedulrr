@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Calendar, BarChart, Users, Clock, Search } from "lucide-react";
+import { Calendar, BarChart, Users, Clock, Search, Menu, X } from "lucide-react";
 import { BarLoader } from "react-spinners";
 import { useUser } from "@clerk/nextjs";
+import { useState, useEffect } from "react";
 
 const navItems = [
   { href: "/dashboard", label: "Tableau de bord", icon: BarChart },
@@ -13,186 +14,114 @@ const navItems = [
   { href: "/availability", label: "Disponibilité", icon: Clock },
 ];
 
-
-// Reusable components that match the design in the image
-export function MetricCard({ icon: Icon, title, value }) {
-  return (
-    <div className="p-4 border border-gray-200 rounded-md bg-white">
-      <div className="flex items-center">
-        <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4">
-          <Icon className="w-6 h-6 text-gray-500" />
-        </div>
-        <div>
-          <p className="text-gray-500 text-sm">{title}</p>
-          <p className="text-2xl font-bold">{value}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function ContentCard({ title, actionLabel, actionUrl, children }) {
-  return (
-    <div className="border border-gray-200 rounded-md bg-white overflow-hidden">
-      <div className="p-4 flex justify-between items-center border-b border-gray-200">
-        <h2 className="text-lg font-medium text-gray-800">{title}</h2>
-        {actionLabel && (
-          <Link
-            href={actionUrl || "#"}
-            className="bg-[#ff6b00] text-white px-4 py-2 rounded-md text-sm font-medium"
-          >
-            {actionLabel}
-          </Link>
-        )}
-      </div>
-      <div>{children}</div>
-    </div>
-  );
-}
-
-export function ActionButton({ label, primary = false, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`px-3 py-1 rounded-md text-xs font-medium ${
-        primary 
-          ? "bg-[#ff6b00] text-white" 
-          : "bg-black text-white"
-      }`}
-    >
-      {label}
-    </button>
-  );
-}
-
-export function StatusBadge({ status }) {
-  const getStatusStyles = () => {
-    switch (status.toLowerCase()) {
-      case "en cours":
-        return "bg-orange-100 text-orange-800";
-      case "terminé":
-      case "terminer":
-        return "bg-green-100 text-green-800";
-      case "replanifier":
-        return "bg-gray-100 text-gray-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
-
-  return (
-    <span className={`px-2 py-1 rounded-md text-xs ${getStatusStyles()}`}>
-      {status}
-    </span>
-  );
-}
-
-export function DataTable({ columns, data, actionLabel = "Accéder" }) {
-  return (
-    <div className="overflow-x-auto">
-      <table className="w-full">
-        <thead className="bg-gray-50">
-          <tr>
-            {columns.map((column, idx) => (
-              <th key={idx} className="px-4 py-3 text-left text-sm font-medium text-gray-500">
-                {column}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-200">
-          {data.map((row, idx) => (
-            <tr key={idx} className="bg-white">
-              {Object.keys(row).map((key, cellIdx) => {
-                if (key === "status") {
-                  return (
-                    <td key={cellIdx} className="px-4 py-3 text-sm">
-                      <StatusBadge status={row[key]} />
-                    </td>
-                  );
-                } else if (key === "action") {
-                  return (
-                    <td key={cellIdx} className="px-4 py-3 text-sm">
-                      <ActionButton label={actionLabel} />
-                    </td>
-                  );
-                }
-                return (
-                  <td 
-                    key={cellIdx} 
-                    className={`px-4 py-3 text-sm ${
-                      key === "title" ? "text-gray-900" : "text-gray-500"
-                    }`}
-                  >
-                    {row[key]}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-export function StatCard({ title, value }) {
-  return (
-    <div className="bg-gray-50 p-4 rounded-md">
-      <p className="text-sm text-gray-500">{title}</p>
-      <p className="text-2xl font-bold">{value}</p>
-    </div>
-  );
-}
-
-// Main layout component
 export default function AppLayout({ children }) {
   const pathname = usePathname();
-  const { isLoaded } = useUser();
+  const { isLoaded, user } = useUser();
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      {!isLoaded && <BarLoader width={"100%"} color="#ff6b00" />}
-      <div className="flex flex-col h-screen">
-        
-
-        <div className="flex flex-1 overflow-hidden">
-          {/* Sidebar for medium screens and up */}
-          <aside className="hidden md:block w-64 bg-white border-r border-gray-200">
-            <nav className="mt-4">
-              <ul>
-                {navItems.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={`flex items-center px-4 py-4 text-gray-700 hover:bg-gray-50 ${
-                        pathname === item.href ? "border-l-4 border-[#ff6b00] bg-gray-50" : ""
-                      }`}
-                    >
-                      <item.icon className="w-5 h-5 mr-3 text-gray-500" />
-                      <span className="font-medium">{item.label}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </aside>
-
-          {/* Main content */}
-          <main className="flex-1 overflow-y-auto bg-gray-50 p-4 md:p-6">
-            {children}
-          </main>
+      {!isLoaded && (
+        <div className="fixed top-0 left-0 right-0 z-50">
+          <BarLoader width={"100%"} color="#5F9EE9" />
         </div>
+      )}
+      <div className="flex flex-col h-screen bg-[#FFFFFF]">
+        {/* Top Navigation */}
+        <nav className={`sticky top-0 z-10 bg-white ${isScrolled ? 'shadow-lg' : 'border-b border-[#5F9EE9]/20'} transition-all duration-300`}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between h-16 items-center">
+              {/* Mobile menu button */}
+              <div className="flex md:hidden">
+                <button
+                  className="p-2 rounded-md text-[#2A3142] hover:text-[#5F9EE9] hover:bg-[#5F9EE9]/10 focus:outline-none focus:ring-2 focus:ring-[#5F9EE9] focus:ring-opacity-50 transition-colors duration-200"
+                  onClick={() => setMobileNavOpen(!mobileNavOpen)}
+                  aria-label="Toggle navigation menu"
+                >
+                  {mobileNavOpen ? (
+                    <X className="h-6 w-6" />
+                  ) : (
+                    <Menu className="h-6 w-6" />
+                  )}
+                </button>
+              </div>
+              
+              {/* Centered desktop navigation */}
+              <div className="hidden md:flex flex-1 justify-center">
+                <div className="flex space-x-1 bg-[#5F9EE9]/10 rounded-lg p-1">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`flex items-center px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 ${
+                        pathname === item.href 
+                          ? "text-white bg-[#5F9EE9] shadow-inner" 
+                          : "text-[#2A3142] hover:bg-[#5F9EE9]/20 hover:text-[#4A8BD6]"
+                      }`}
+                      aria-current={pathname === item.href ? "page" : undefined}
+                    >
+                      <item.icon className={`w-5 h-5 mr-2 ${pathname === item.href ? "text-white" : "text-[#5F9EE9]"}`} />
+                      <span>{item.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
 
-        {/* Bottom tabs for small screens */}
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-md border-t border-gray-200">
+              {/* Empty div to balance the flex layout */}
+              <div className="md:hidden w-10"></div>
+            </div>
+          </div>
+
+          {/* Mobile Navigation Dropdown */}
+          {mobileNavOpen && (
+            <div className="md:hidden bg-white border-b border-[#5F9EE9]/20 shadow-sm">
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center px-3 py-3 rounded-md text-base font-semibold transition-colors duration-200 ${
+                      pathname === item.href 
+                        ? "text-white bg-[#5F9EE9]" 
+                        : "text-[#2A3142] hover:bg-[#5F9EE9]/10 hover:text-[#4A8BD6]"
+                    }`}
+                    onClick={() => setMobileNavOpen(false)}
+                  >
+                    <item.icon className="w-5 h-5 mr-3" />
+                    <span>{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </nav>
+
+        {/* Main content */}
+        <main className="flex-1 overflow-y-auto bg-[#FFFFFF] p-4 md:p-6 pb-16 md:pb-6">
+          {children}
+        </main>
+
+        {/* Bottom Mobile Navigation */}
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t border-[#5F9EE9]/20 z-10">
           <ul className="flex justify-around">
             {navItems.map((item) => (
-              <li key={item.href}>
+              <li key={item.href} className="flex-1">
                 <Link
                   href={item.href}
-                  className={`flex flex-col items-center py-2 px-4 ${
-                    pathname === item.href ? "text-[#ff6b00]" : "text-gray-600"
+                  className={`flex flex-col items-center py-3 px-4 transition-colors duration-200 ${
+                    pathname === item.href 
+                      ? "text-[#5F9EE9] bg-[#5F9EE9]/10" 
+                      : "text-[#808487] hover:text-[#5F9EE9]"
                   }`}
                 >
                   <item.icon className="w-6 h-6" />
