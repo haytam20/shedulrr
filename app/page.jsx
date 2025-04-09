@@ -40,21 +40,21 @@ const howItWorks = [
 
 const Home = () => {
   return (
-    <main className="bg-[#F8FAFC]">
+    <main className="bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#5F9EE9]/10 to-white py-16">
+      <section className="bg-white shadow-sm border-b border-gray-200 py-12">
         <div className="px-4 lg:px-8 mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="lg:w-1/2">
-              <h1 className="text-4xl font-bold text-[#2A3142] mb-4">
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">
                 Simplifiez Votre Planification
               </h1>
-              <p className="text-[#808487] text-lg mb-8">
+              <p className="text-gray-600 mb-8">
                 Vue d'Ensemble vous aide à gérer votre temps efficacement. Créez des événements, définissez
                 votre disponibilité et permettez aux autres de réserver du temps avec vous en toute transparence.
               </p>
               <Link href="/dashboard" passHref>
-                <Button className="bg-[#5F9EE9] hover:bg-[#4A8BD6] text-white rounded-lg px-6 py-3 font-medium transition-colors duration-200">
+                <Button className="bg-gray-900 hover:bg-orange-500 text-white rounded-none px-4 py-2 font-medium">
                   Commencer <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
@@ -66,7 +66,7 @@ const Home = () => {
                   alt="Illustration de planification"
                   fill
                   className="object-contain"
-                  priority
+                  priority // Prioritize loading this image
                 />
               </div>
             </div>
@@ -75,63 +75,60 @@ const Home = () => {
       </section>
 
       {/* Key Features Section */}
-      <section className="py-16">
+      <section className="bg-white shadow-sm border-b border-gray-200 py-12">
         <div className="px-4 lg:px-8 mx-auto max-w-7xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#2A3142] mb-4">Fonctionnalités Clés</h2>
-            <p className="text-[#808487] max-w-2xl mx-auto">
-              Découvrez comment notre solution peut transformer votre gestion du temps
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div 
-                key={index} 
-                className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200"
-              >
-                <div className="w-12 h-12 rounded-full bg-[#5F9EE9]/10 flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-[#5F9EE9]" />
-                </div>
-                <h3 className="text-xl font-semibold text-[#2A3142] mb-2">{feature.title}</h3>
-                <p className="text-[#808487]">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-8">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-bold">Fonctionnalités Clés</h2>
             <Link href="/features" passHref>
-              <Button className="bg-white text-[#5F9EE9] hover:bg-[#5F9EE9]/10 border border-[#5F9EE9] rounded-lg px-6 py-3 font-medium transition-colors duration-200">
-                Voir toutes les fonctionnalités
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-none px-4 py-2 text-sm font-medium">
+                Découvrir
               </Button>
             </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <div key={index} className="border border-gray-200 p-4">
+                <div className="flex items-start mb-3">
+                  <feature.icon className="w-5 h-5 text-gray-500 mr-3 mt-1" />
+                  <h3 className="text-lg font-semibold text-gray-900">{feature.title}</h3>
+                </div>
+                <p className="text-gray-600 text-sm">{feature.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="bg-[#F7F9FB] py-16">
+      <section className="bg-white shadow-sm border-b border-gray-200 py-12">
         <div className="px-4 lg:px-8 mx-auto max-w-7xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#2A3142] mb-4">Comment Ça Marche</h2>
-            <p className="text-[#808487] max-w-2xl mx-auto">
-              En seulement 4 étapes simples, optimisez votre gestion de rendez-vous
-            </p>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-bold">Comment Ça Marche</h2>
+            <Link href="/how-it-works" passHref>
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-none px-4 py-2 text-sm font-medium">
+                Découvrir
+              </Button>
+            </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {howItWorks.map((step, index) => (
-              <div 
-                key={index} 
-                className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200"
-              >
-                <div className="w-10 h-10 rounded-full bg-[#5F9EE9] flex items-center justify-center text-white font-bold mb-4">
-                  {index + 1}
+              <div key={index} className="border border-gray-200 p-4">
+                <div className="flex items-center mb-3">
+                  <div className="bg-gray-100 w-8 h-8 flex items-center justify-center mr-3">
+                    <span className="text-gray-700 font-medium">{index + 1}</span>
+                  </div>
+                  <h3 className="font-semibold text-gray-900">{step.step}</h3>
                 </div>
-                <h3 className="text-lg font-semibold text-[#2A3142] mb-2">{step.step}</h3>
-                <p className="text-[#808487] text-sm">{step.description}</p>
+                <p className="text-gray-600 text-sm">{step.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+     
+     
+      
     </main>
   );
 };
