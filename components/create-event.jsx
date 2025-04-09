@@ -47,7 +47,7 @@ export default function CreateEventDrawer() {
         />
         <DrawerFooter className="px-6">
           <DrawerClose asChild>
-            <Button className='bg-[#F7B84B] hover:bg-[#E9547B] text-white hover:text-white' variant="outline" onClick={handleClose}>
+            <Button variant="outline" onClick={handleClose}>
               Cancel
             </Button>
           </DrawerClose>
