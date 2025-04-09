@@ -57,8 +57,8 @@ export default function AvailabilityForm({ initialData }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="bg-white rounded-none shadow-sm p-6 border border-gray-200"> {/* Removed rounded-lg */}
-        <h3 className="text-lg font-medium text-gray-800 mb-4">Disponibilités</h3>
+      <div className="bg-[#FFFFFF] dark:bg-[#2A3142] shadow-lg p-6 border border-gray-200 dark:border-[#5F9EE9] dark:border-opacity-30">
+        <h3 className="text-lg font-medium text-[#2A3142] dark:text-[#FFFFFF] mb-4">Disponibilités</h3>
         
         <div className="space-y-4">
           {[
@@ -73,7 +73,7 @@ export default function AvailabilityForm({ initialData }) {
             const isAvailable = watch(`${day}.isAvailable`);
 
             return (
-              <div key={day} className="flex flex-col sm:flex-row sm:items-center gap-2 pb-3 border-b border-gray-100">
+              <div key={day} className="flex flex-col sm:flex-row sm:items-center gap-2 pb-3 border-b border-gray-200 dark:border-[#5F9EE9] dark:border-opacity-20">
                 <div className="flex items-center gap-3 min-w-36">
                   <Controller
                     name={`${day}.isAvailable`}
@@ -88,28 +88,32 @@ export default function AvailabilityForm({ initialData }) {
                             setValue(`${day}.endTime`, "17:00");
                           }
                         }}
-                        className="border-gray-300 data-[state=checked]:bg-orange-500 rounded-none" // Removed rounded-md
+                        className="border-gray-300 dark:border-[#5F9EE9] data-[state=checked]:bg-[#5F9EE9] data-[state=checked]:hover:bg-[#4A8BD6] transition-colors duration-200"
                       />
                     )}
                   />
-                  <span className="text-gray-700 font-medium">{getDayLabel(day)}</span>
+                  <span className="text-[#2A3142] dark:text-[#FFFFFF] font-medium">{getDayLabel(day)}</span>
                 </div>
                 
                 {isAvailable && (
                   <div className="flex flex-wrap items-center gap-2 ml-0 sm:ml-4">
-                    <div className="flex items-center border rounded-none bg-gray-50 pr-2"> {/* Removed rounded-md */}
-                      <Clock className="ml-2 h-4 w-4 text-gray-400" />
+                    <div className="flex items-center border border-gray-200 dark:border-[#5F9EE9] dark:border-opacity-30 bg-gray-50 dark:bg-[#2A3142] pr-2">
+                      <Clock className="ml-2 h-4 w-4 text-[#808487]" />
                       <Controller
                         name={`${day}.startTime`}
                         control={control}
                         render={({ field }) => (
                           <Select onValueChange={field.onChange} value={field.value}>
-                            <SelectTrigger className="w-24 border-0 bg-transparent focus:ring-0 rounded-none"> {/* Removed rounded-md */}
+                            <SelectTrigger className="w-24 border-0 bg-transparent focus:ring-0 focus-visible:ring-2 focus-visible:ring-[#5F9EE9] text-[#2A3142] dark:text-[#FFFFFF]">
                               <SelectValue placeholder="Début" />
                             </SelectTrigger>
-                            <SelectContent className="rounded-none"> {/* Removed rounded-md */}
+                            <SelectContent className="bg-[#FFFFFF] dark:bg-[#2A3142] border-[#5F9EE9]">
                               {timeSlots.map((time) => (
-                                <SelectItem key={time} value={time} className="rounded-none"> {/* Removed rounded-md */}
+                                <SelectItem 
+                                  key={time} 
+                                  value={time} 
+                                  className="text-[#2A3142] dark:text-[#FFFFFF] hover:bg-[#5F9EE9] hover:bg-opacity-10 dark:hover:bg-opacity-20 transition-colors duration-200"
+                                >
                                   {time}
                                 </SelectItem>
                               ))}
@@ -119,21 +123,25 @@ export default function AvailabilityForm({ initialData }) {
                       />
                     </div>
                     
-                    <span className="text-gray-500">à</span>
+                    <span className="text-[#808487]">à</span>
                     
-                    <div className="flex items-center border rounded-none bg-gray-50 pr-2"> {/* Removed rounded-md */}
-                      <Clock className="ml-2 h-4 w-4 text-gray-400" />
+                    <div className="flex items-center border border-gray-200 dark:border-[#5F9EE9] dark:border-opacity-30 bg-gray-50 dark:bg-[#2A3142] pr-2">
+                      <Clock className="ml-2 h-4 w-4 text-[#808487]" />
                       <Controller
                         name={`${day}.endTime`}
                         control={control}
                         render={({ field }) => (
                           <Select onValueChange={field.onChange} value={field.value}>
-                            <SelectTrigger className="w-24 border-0 bg-transparent focus:ring-0 rounded-none"> {/* Removed rounded-md */}
+                            <SelectTrigger className="w-24 border-0 bg-transparent focus:ring-0 focus-visible:ring-2 focus-visible:ring-[#5F9EE9] text-[#2A3142] dark:text-[#FFFFFF]">
                               <SelectValue placeholder="Fin" />
                             </SelectTrigger>
-                            <SelectContent className="rounded-none"> {/* Removed rounded-md */}
+                            <SelectContent className="bg-[#FFFFFF] dark:bg-[#2A3142] border-[#5F9EE9]">
                               {timeSlots.map((time) => (
-                                <SelectItem key={time} value={time} className="rounded-none"> {/* Removed rounded-md */}
+                                <SelectItem 
+                                  key={time} 
+                                  value={time} 
+                                  className="text-[#2A3142] dark:text-[#FFFFFF] hover:bg-[#5F9EE9] hover:bg-opacity-10 dark:hover:bg-opacity-20 transition-colors duration-200"
+                                >
                                   {time}
                                 </SelectItem>
                               ))}
@@ -144,7 +152,7 @@ export default function AvailabilityForm({ initialData }) {
                     </div>
                     
                     {errors[day]?.endTime && (
-                      <span className="text-red-500 text-sm">
+                      <span className="text-[#F06449] text-sm">
                         {errors[day].endTime.message}
                       </span>
                     )}
@@ -156,13 +164,13 @@ export default function AvailabilityForm({ initialData }) {
         </div>
       </div>
 
-      <div className="bg-white rounded-none shadow-sm p-6 border border-gray-200"> {/* Removed rounded-lg */}
-        <h3 className="text-lg font-medium text-gray-800 mb-4">Paramètres</h3>
+      <div className="bg-[#FFFFFF] dark:bg-[#2A3142] shadow-lg p-6 border border-gray-200 dark:border-[#5F9EE9] dark:border-opacity-30">
+        <h3 className="text-lg font-medium text-[#2A3142] dark:text-[#FFFFFF] mb-4">Paramètres</h3>
         
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <div className="flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-gray-400" />
-            <span className="text-gray-700">Délai minimum avant réservation:</span>
+            <Calendar className="h-5 w-5 text-[#808487]" />
+            <span className="text-[#2A3142] dark:text-[#FFFFFF]">Délai minimum avant réservation:</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -172,19 +180,19 @@ export default function AvailabilityForm({ initialData }) {
               {...register("timeGap", {
                 valueAsNumber: true,
               })}
-              className="w-24 border-gray-300 focus:border-orange-500 focus:ring-orange-500 rounded-none" // Removed rounded-md
+              className="w-24 border-gray-200 rounded-md dark:border-[#5F9EE9] dark:border-opacity-30 focus:border-[#5F9EE9] focus:ring-[#5F9EE9] dark:focus:ring-[#5F9EE9] bg-[#FFFFFF] dark:bg-[#2A3142] text-[#2A3142] dark:text-[#FFFFFF]"
             />
-            <span className="text-gray-500">minutes</span>
+            <span className="text-[#808487]">minutes</span>
           </div>
 
           {errors.timeGap && (
-            <span className="text-red-500 text-sm">{errors.timeGap.message}</span>
+            <span className="text-[#F06449] text-sm">{errors.timeGap.message}</span>
           )}
         </div>
       </div>
 
       {error && (
-        <div className="bg-red-50 text-red-500 p-3 rounded-none text-sm"> {/* Removed rounded-md */}
+        <div className="bg-[#F06449] bg-opacity-10 text-[#F06449] p-3 text-sm">
           {error?.message}
         </div>
       )}
@@ -193,7 +201,7 @@ export default function AvailabilityForm({ initialData }) {
         <Button 
           type="submit" 
           disabled={loading}
-          className="bg-orange-500 hover:bg-orange-600 text-white font-medium px-6 rounded-none" // Removed rounded-md
+          className="bg-[#5F9EE9] hover:bg-[#4A8BD6] text-white font-medium px-6 transition-colors duration-200 focus:ring-2 focus:ring-[#5F9EE9] focus:ring-opacity-50 active:scale-95"
         >
           {loading ? "Mise à jour..." : "Mettre à jour"}
         </Button>

@@ -2,9 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Calendar, BarChart, Users, Clock, Search } from "lucide-react";
+import { Calendar, BarChart, Users, Clock, PenBox } from "lucide-react";
 import { BarLoader } from "react-spinners";
 import { useUser } from "@clerk/nextjs";
+import { motion } from 'framer-motion';
+import { cn } from "@/lib/utils"
+import { Button } from "../../components/ui/button";
+
 
 const navItems = [
   { href: "/dashboard", label: "Tableau de bord", icon: BarChart },
@@ -14,7 +18,7 @@ const navItems = [
 ];
 
 
-// Reusable components that match the design in the image
+
 export function MetricCard({ icon: Icon, title, value }) {
   return (
     <div className="p-4 border border-gray-200 rounded-md bg-white">
@@ -39,7 +43,7 @@ export function ContentCard({ title, actionLabel, actionUrl, children }) {
         {actionLabel && (
           <Link
             href={actionUrl || "#"}
-            className="bg-[#ff6b00] text-white px-4 py-2 rounded-md text-sm font-medium"
+            className="bg-[#5F9EE9] hover:bg-[#4A8BD6] text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
           >
             {actionLabel}
           </Link>
@@ -54,11 +58,10 @@ export function ActionButton({ label, primary = false, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`px-3 py-1 rounded-md text-xs font-medium ${
-        primary 
-          ? "bg-[#ff6b00] text-white" 
-          : "bg-black text-white"
-      }`}
+      className={`px-3 py-1 rounded-md text-xs font-medium transition-colors duration-200 ${primary
+          ? "bg-[#5F9EE9] hover:bg-[#4A8BD6] text-white"
+          : "bg-gray-800 hover:bg-gray-700 text-white"
+        }`}
     >
       {label}
     </button>
@@ -113,16 +116,15 @@ export function DataTable({ columns, data, actionLabel = "Accéder" }) {
                 } else if (key === "action") {
                   return (
                     <td key={cellIdx} className="px-4 py-3 text-sm">
-                      <ActionButton label={actionLabel} />
+                      <ActionButton label={actionLabel} primary />
                     </td>
                   );
                 }
                 return (
-                  <td 
-                    key={cellIdx} 
-                    className={`px-4 py-3 text-sm ${
-                      key === "title" ? "text-gray-900" : "text-gray-500"
-                    }`}
+                  <td
+                    key={cellIdx}
+                    className={`px-4 py-3 text-sm ${key === "title" ? "text-gray-900" : "text-gray-500"
+                      }`}
                   >
                     {row[key]}
                   </td>
@@ -145,64 +147,97 @@ export function StatCard({ title, value }) {
   );
 }
 
-// Main layout component
 export default function AppLayout({ children }) {
   const pathname = usePathname();
   const { isLoaded } = useUser();
 
   return (
-    <>
-      {!isLoaded && <BarLoader width={"100%"} color="#ff6b00" />}
-      <div className="flex flex-col h-screen">
-        
+    <div className="flex flex-col h-screen">
+      {!isLoaded && <BarLoader width="100%" color="#5F9EE9" />}
 
-        <div className="flex flex-1 overflow-hidden">
-          {/* Sidebar for medium screens and up */}
-          <aside className="hidden md:block w-64 bg-white border-r border-gray-200">
-            <nav className="mt-4">
-              <ul>
-                {navItems.map((item) => (
-                  <li key={item.href}>
+      <div className="flex flex-1 overflow-hidden ">
+        {/* Main content */}
+        <main className="flex-1 overflow-y-auto bg-gray-50 p-4 md:p-6  ">
+          {/* Navigation Bar */}
+          <nav className=" container  w-[72.4%] relative  overflow-hidden rounded-t-xl bg-white/80 p-1.5  backdrop-blur-sm dark:bg-gray-900/80">
+            <ul className="flex flex-wrap items-center justify-center gap-1 md:gap-2">
+              {navItems.map((item) => {
+                const isActive = pathname === item.href
+
+                return (
+                  <li key={item.href} className="relative">
                     <Link
                       href={item.href}
-                      className={`flex items-center px-4 py-4 text-gray-700 hover:bg-gray-50 ${
-                        pathname === item.href ? "border-l-4 border-[#ff6b00] bg-gray-50" : ""
-                      }`}
+                      className={cn(
+                        "group relative flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 md:px-4",
+                        isActive
+                          ? "text-primary"
+                          : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50",
+                      )}
                     >
-                      <item.icon className="w-5 h-5 mr-3 text-gray-500" />
-                      <span className="font-medium">{item.label}</span>
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeBackground"
+                          className="absolute inset-0 rounded-lg bg-primary/10 dark:bg-primary/20"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.2 }}
+                        />
+                      )}
+                      <item.icon
+                        className={cn(
+                          "h-5 w-5 transition-all duration-200",
+                          isActive
+                            ? "text-primary"
+                            : "text-gray-500 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-300 ",
+                        )}
+                      />
+                      <span>{item.label}</span>
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeIndicator"
+                          className="absolute bottom-0 left-0 right-0 mx-auto h-0.5 w-12 rounded-full bg-primary"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.2 }}
+                        />
+                      )}
                     </Link>
                   </li>
-                ))}
-              </ul>
-            </nav>
-          </aside>
-
-          {/* Main content */}
-          <main className="flex-1 overflow-y-auto bg-gray-50 p-4 md:p-6">
-            {children}
-          </main>
-        </div>
-
-        {/* Bottom tabs for small screens */}
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-md border-t border-gray-200">
-          <ul className="flex justify-around">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`flex flex-col items-center py-2 px-4 ${
-                    pathname === item.href ? "text-[#ff6b00]" : "text-gray-600"
-                  }`}
+                )
+              })}
+            </ul>
+            <div className="absolute right-0 top-0 mr-4  md:mr-6 md:mt-1">
+              <Link href="/events?create=true ">
+                <Button
+                  variant="default"
+                  className="text-gray-600 bg-white hover-bg-gray-30  hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 "
                 >
-                  <item.icon className="w-6 h-6" />
-                  <span className="text-xs mt-1 font-medium">{item.label}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+                  <PenBox size={16} className="mr-2" />
+                  <span className="hidden sm:inline ">Créer un événement</span>
+                </Button>
+              </Link>
+            </div>
+          </nav>
+
+          {/* Main Content Area */}
+          <div className="container mx-auto ">
+            <motion.div
+              key={pathname}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 15 }}
+              transition={{
+                duration: 0.2,
+                ease: 'easeOut',
+              }}
+              className="bg-white rounded-b-md  p-4 md:p-6"
+            >
+              {children}
+            </motion.div>
+          </div>
+        </main>
       </div>
-    </>
+    </div>
   );
 }
