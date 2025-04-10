@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import useFetch from "@/hooks/use-fetch";
-import { ExternalLink, Trash2 } from "lucide-react";
+import { Calendar, ExternalLink, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -25,7 +25,7 @@ export default function CarteEvenement({ event, username, isPublic = false }) {
         `${window?.location.origin}/${username}/${event.id}`
       );
       setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000); // Réinitialiser après 2 secondes
+      setTimeout(() => setIsCopied(false), 2000);
     } catch (err) {
       console.error("Échec de la copie : ", err);
     }
@@ -41,7 +41,12 @@ export default function CarteEvenement({ event, username, isPublic = false }) {
   };
 
   const handleCardClick = (e) => {
-    if (e.target.tagName !== "BUTTON" && e.target.tagName !== "SVG") {
+    // Avoid triggering card click when clicking buttons or their children
+    if (
+      e.target.tagName !== "BUTTON" && 
+      e.target.tagName !== "SVG" && 
+      !e.target.closest('button')
+    ) {
       window?.open(
         `${window?.location.origin}/${username}/${event.id}`,
         "_blank"
@@ -50,22 +55,40 @@ export default function CarteEvenement({ event, username, isPublic = false }) {
   };
 
   const getStatusBadge = () => {
-    // Déterminer le statut en fonction des données de l'événement
-    const status = event.isPrivate ? "Replanifié" : "En Cours";
+    let status, bgColor, textColor;
+    
+    if (event.isPrivate) {
+      status = "Replanifié";
+      bgColor = "bg-gray-100";
+      textColor = "text-gray-500";
+    } else if (event._count.bookings > 0) {
+      status = "En Cours";
+      bgColor = "bg-orange-100";
+      textColor = "text-[#F7B84B]";
+    } else {
+      status = "Disponible";
+      bgColor = "bg-green-100";
+      textColor = "text-green-500";
+    }
     
     return (
       <span
-        className={`px-2 py-1 text-xs rounded-md ${
-          status === "En Cours"
-            ? "bg-orange-100 text-[#F7B84B]"
-            : status === "Terminé"
-            ? "bg-green-100 text-green-500"
-            : "bg-gray-100 text-gray-500"
-        }`}
+        className={`px-2 py-1 text-xs font-medium rounded-md ${bgColor} ${textColor}`}
       >
         {status}
       </span>
     );
+  };
+
+  // Function to format the truncated description
+  const getTruncatedDescription = () => {
+    const firstSentenceEnd = event.description.indexOf(".");
+    if (firstSentenceEnd === -1) {
+      return event.description.length > 100 
+        ? event.description.substring(0, 100) + "..." 
+        : event.description;
+    }
+    return event.description.substring(0, firstSentenceEnd + 1);
   };
 
   return (
@@ -75,30 +98,37 @@ export default function CarteEvenement({ event, username, isPublic = false }) {
     >
       <CardHeader className="pb-2">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-[#5F9EE9] text-white rounded-full flex items-center justify-center font-medium">
-            {event.title.charAt(0)}
+          <div className="w-12 h-12 bg-[#5F9EE9] text-white rounded-full flex items-center justify-center font-semibold text-lg transition-colors duration-200 hover:bg-[#4A8BD6]">
+            {event.title.charAt(0).toUpperCase()}
           </div>
           <div>
             <CardTitle className="text-xl font-semibold text-[#2A3142]">{event.title}</CardTitle>
-            <CardDescription className="text-sm text-[#808487]">
-              {event.duration} mins | {event._count.bookings} Réservations
+            <CardDescription className="text-sm text-[#808487] flex items-center gap-1">
+              <span>{event.duration} mins</span>
+              <span className="mx-1">•</span>
+              <span>{event._count.bookings} Réservation{event._count.bookings !== 1 ? 's' : ''}</span>
             </CardDescription>
           </div>
         </div>
       </CardHeader>
       <CardContent className="pb-4">
         <div className="flex justify-between items-center mb-3">
-          <span className="text-sm text-[#808487]">
-            {new Date().toLocaleDateString("fr-FR")}
+          <span className="text-sm text-[#808487] flex items-center gap-1">
+            <Calendar className="h-4 w-4" />
+            {new Date().toLocaleDateString("fr-FR", {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric'
+            })}
           </span>
           {getStatusBadge()}
         </div>
-        <p className="text-sm text-[#2A3142]">
-          {event.description.substring(0, event.description.indexOf("."))}.
+        <p className="text-sm text-[#2A3142] line-clamp-2">
+          {getTruncatedDescription()}
         </p>
       </CardContent>
       {!isPublic && (
-        <CardFooter className="flex gap-2 pt-2 border-t border-gray-200">
+        <CardFooter className="flex gap-2 pt-3 border-t border-gray-200">
           <Button
             variant="outline"
             onClick={handleCopy}
@@ -114,7 +144,7 @@ export default function CarteEvenement({ event, username, isPublic = false }) {
             className="flex items-center justify-center flex-1 text-sm bg-[#F7B84B] hover:bg-[#E9547B] text-white border-none transition-colors duration-200 rounded-md"
           >
             <Trash2 className="mr-2 h-4 w-4" />
-            {loading ? "Suppression en cours..." : "Supprimer"}
+            {loading ? "Suppression..." : "Supprimer"}
           </Button>
         </CardFooter>
       )}
