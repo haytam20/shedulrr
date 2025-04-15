@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs"
 import Header from "@/components/header"
 import CreateEventDrawer from "@/components/create-event"
 
+
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
@@ -15,15 +16,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang="fr">
-        <body className={`${inter.className} bg-gray-50 flex flex-col min-h-screen`}>
-          <Header />
-          <main className="flex-grow">{children}</main>
-       
-          <CreateEventDrawer />
+      <html lang="fr" suppressHydrationWarning>
+        <body className={`${inter.className} bg-gray-50 flex flex-col min-h-screen dark:bg-gray-900`}>
+          
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <CreateEventDrawer />
+          
         </body>
       </html>
     </ClerkProvider>
   )
 }
-
