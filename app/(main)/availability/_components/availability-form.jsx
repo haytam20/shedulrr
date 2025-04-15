@@ -57,7 +57,7 @@ export default function AvailabilityForm({ initialData }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="bg-[#FFFFFF] dark:bg-[#2A3142] shadow-lg p-6 border border-gray-200 dark:border-[#5F9EE9] dark:border-opacity-30">
+      <div className="bg-[#FFFFFF] dark:bg-[#2A3142] shadow-lg p-6">
         <h3 className="text-lg font-medium text-[#2A3142] dark:text-[#FFFFFF] mb-4">Disponibilités</h3>
         
         <div className="space-y-4">
@@ -73,7 +73,7 @@ export default function AvailabilityForm({ initialData }) {
             const isAvailable = watch(`${day}.isAvailable`);
 
             return (
-              <div key={day} className="flex flex-col sm:flex-row sm:items-center gap-2 pb-3 border-b border-gray-200 dark:border-[#5F9EE9] dark:border-opacity-20">
+              <div key={day} className="flex flex-col sm:flex-row sm:items-center gap-2 pb-3  ">
                 <div className="flex items-center gap-3 min-w-36">
                   <Controller
                     name={`${day}.isAvailable`}
