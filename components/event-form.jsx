@@ -40,79 +40,79 @@ const EventForm = ({ onSubmitForm, initialData = {}, onCancel }) => {
 
   return (
     <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xl">
-      {/* Header */}
+      {/* Encabezado */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-[#2A3142]">
-          {initialData.id ? "Modifier l'événement" : "Créer un événement"}
+          {initialData.id ? "Editar evento" : "Crear evento"}
         </h2>
         {onCancel && (
           <button
             onClick={onCancel}
             className="text-[#808487] hover:text-[#2A3142] transition-colors duration-200"
             type="button"
-            aria-label="Fermer"
+            aria-label="Cerrar"
           >
             <X size={20} />
           </button>
         )}
       </div>
 
-      {/* Form */}
+      {/* Formulario */}
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-        {/* Title Field */}
+        {/* Campo de Título */}
         <div className="space-y-2">
           <Label htmlFor="title" className="text-sm font-medium text-[#2A3142]">
-            Titre de l'événement <span className="text-[#F06449]">*</span>
+            Título del evento <span className="text-[#F06449]">*</span>
           </Label>
           <Input
             id="title"
             {...register("title")}
             className={`${errors.title ? "border-[#F06449]" : "border-gray-300"} rounded-lg`}
-            placeholder="Entrez le titre de l'événement"
+            placeholder="Ingresa el título del evento"
           />
           {errors.title && (
             <p className="text-[#F06449] text-xs mt-1">{errors.title.message}</p>
           )}
         </div>
 
-        {/* Description Field */}
+        {/* Campo de Descripción */}
         <div className="space-y-2">
           <Label htmlFor="description" className="text-sm font-medium text-[#2A3142]">
-            Description <span className="text-[#F06449]">*</span>
+            Descripción <span className="text-[#F06449]">*</span>
           </Label>
           <Textarea
             id="description"
             {...register("description")}
             rows={5}
             className={`${errors.description ? "border-[#F06449]" : "border-gray-300"} rounded-lg`}
-            placeholder="Entrez la description de l'événement"
+            placeholder="Ingresa la descripción del evento"
           />
           {errors.description && (
             <p className="text-[#F06449] text-xs mt-1">{errors.description.message}</p>
           )}
         </div>
 
-        {/* Duration Field */}
+        {/* Campo de Duración */}
         <div className="space-y-2">
           <Label htmlFor="duration" className="text-sm font-medium text-[#2A3142]">
-            Durée (minutes) <span className="text-[#F06449]">*</span>
+            Duración (minutos) <span className="text-[#F06449]">*</span>
           </Label>
           <Input
             id="duration"
             {...register("duration", { valueAsNumber: true })}
             type="number"
             className={`${errors.duration ? "border-[#F06449]" : "border-gray-300"} rounded-lg`}
-            placeholder="Entrez la durée en minutes"
+            placeholder="Ingresa la duración en minutos"
           />
           {errors.duration && (
             <p className="text-[#F06449] text-xs mt-1">{errors.duration.message}</p>
           )}
         </div>
 
-        {/* Privacy Field */}
+        {/* Campo de Privacidad */}
         <div className="space-y-2">
           <Label htmlFor="isPrivate" className="text-sm font-medium text-[#2A3142]">
-            Confidentialité <span className="text-[#F06449]">*</span>
+            Privacidad <span className="text-[#F06449]">*</span>
           </Label>
           <Controller
             name="isPrivate"
@@ -126,11 +126,11 @@ const EventForm = ({ onSubmitForm, initialData = {}, onCancel }) => {
                   id="isPrivate" 
                   className={`${errors.isPrivate ? "border-[#F06449]" : "border-gray-300"} rounded-lg`}
                 >
-                  <SelectValue placeholder="Sélectionner la confidentialité" />
+                  <SelectValue placeholder="Seleccionar privacidad" />
                 </SelectTrigger>
                 <SelectContent className="rounded-lg border border-[#5F9EE9]">
-                  <SelectItem value="true" className="hover:bg-[#5F9EE9]/10">Privé</SelectItem>
-                  <SelectItem value="false" className="hover:bg-[#5F9EE9]/10">Public</SelectItem>
+                  <SelectItem value="true" className="hover:bg-[#5F9EE9]/10">Privado</SelectItem>
+                  <SelectItem value="false" className="hover:bg-[#5F9EE9]/10">Público</SelectItem>
                 </SelectContent>
               </Select>
             )}
@@ -140,32 +140,32 @@ const EventForm = ({ onSubmitForm, initialData = {}, onCancel }) => {
           )}
         </div>
 
-        {/* Error Message */}
+        {/* Mensaje de Error */}
         {error && (
           <div className="bg-[#F06449]/10 border border-[#F06449] text-[#F06449] px-4 py-3 rounded-lg text-sm">
             {error.message}
           </div>
         )}
 
-        {/* Form Actions */}
+        {/* Acciones del Formulario */}
         <div className="flex justify-end space-x-4 pt-4">
-        {onCancel && (
-  <Button
-    type="button"
-    variant="outline"
-    onClick={onCancel}
-    className="rounded-lg bg-[#F7B84B] hover:bg-[#F06449] text-white transition-colors duration-200"
-  >
-    Annuler
-  </Button>
-)}
-<Button
-  type="submit"
-  disabled={loading}
-  className="rounded-lg bg-[#5F9EE9] hover:bg-[#4A8BD6] text-white transition-colors duration-200"
->
-  {loading ? "Traitement en cours..." : initialData.id ? "Mettre à jour" : "Créer"}
-</Button>
+          {onCancel && (
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onCancel}
+              className="rounded-lg bg-[#F7B84B] hover:bg-[#F06449] text-white transition-colors duration-200"
+            >
+              Cancelar
+            </Button>
+          )}
+          <Button
+            type="submit"
+            disabled={loading}
+           className="bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 shadow-sm"
+              >
+            {loading ? "Procesando..." : initialData.id ? "Actualizar" : "Crear"}
+          </Button>
         </div>
       </form>
     </div>
