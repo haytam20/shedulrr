@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function EventDetails({ event }) {
   const { user } = event;
-  
+
   return (
     <div className="p-8 lg:w-1/3 bg-gradient-to-br from-white to-gray-50 border-l border-gray-200 shadow-sm">
       {/* Header Section */}
@@ -39,7 +39,9 @@ export default function EventDetails({ event }) {
           </div>
           <div>
             <p className="text-sm text-gray-500 font-medium">Duration</p>
-            <p className="text-gray-900 font-semibold">{event.duration} minutes</p>
+            <p className="text-gray-900 font-semibold">
+              {event.duration} minutes
+            </p>
           </div>
         </div>
 
@@ -80,7 +82,8 @@ export default function EventDetails({ event }) {
       {/* Additional Info */}
       <div className="mt-8 p-4 bg-blue-50 rounded-xl border border-blue-100">
         <p className="text-sm text-blue-800">
-          <strong>Note:</strong> You'll receive a calendar invitation with the Google Meet link after booking.
+          <strong>Note:</strong> You&apos;ll receive a calendar invitation with
+          the Google Meet link after booking.
         </p>
       </div>
     </div>
