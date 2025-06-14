@@ -38,7 +38,7 @@ const EventForm = ({ onSubmitForm, initialData = {} }) => {
   const onSubmit = async (data) => {
     await fnCreateEvent(data);
     if (!loading && !error) onSubmitForm();
-    router.refresh(); // Refresh the page to show updated data
+    router.refresh(); // Refrescar la página para mostrar datos actualizados
   };
 
   return (
@@ -51,7 +51,7 @@ const EventForm = ({ onSubmitForm, initialData = {} }) => {
           htmlFor="title"
           className="block text-sm font-medium text-gray-700"
         >
-          Event Title
+          Título del Evento
         </label>
 
         <Input id="title" {...register("title")} className="mt-1" />
@@ -66,7 +66,7 @@ const EventForm = ({ onSubmitForm, initialData = {} }) => {
           htmlFor="description"
           className="block text-sm font-medium text-gray-700"
         >
-          Description
+          Descripción
         </label>
 
         <Textarea
@@ -86,7 +86,7 @@ const EventForm = ({ onSubmitForm, initialData = {} }) => {
           htmlFor="duration"
           className="block text-sm font-medium text-gray-700"
         >
-          Duration (minutes)
+          Duración (minutos)
         </label>
 
         <Input
@@ -108,7 +108,7 @@ const EventForm = ({ onSubmitForm, initialData = {} }) => {
           htmlFor="isPrivate"
           className="block text-sm font-medium text-gray-700"
         >
-          Event Privacy
+          Privacidad del Evento
         </label>
         <Controller
           name="isPrivate"
@@ -119,11 +119,11 @@ const EventForm = ({ onSubmitForm, initialData = {} }) => {
               value={field.value ? "true" : "false"}
             >
               <SelectTrigger className="mt-1">
-                <SelectValue placeholder="Select privacy" />
+                <SelectValue placeholder="Seleccionar privacidad" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="true">Private</SelectItem>
-                <SelectItem value="false">Public</SelectItem>
+                <SelectItem value="true">Privado</SelectItem>
+                <SelectItem value="false">Público</SelectItem>
               </SelectContent>
             </Select>
           )}
@@ -133,7 +133,7 @@ const EventForm = ({ onSubmitForm, initialData = {} }) => {
       {error && <p className="text-red-500 text-xs mt-1">{error.message}</p>}
 
       <Button type="submit" disabled={loading}>
-        {loading ? "Submitting..." : "Create Event"}
+        {loading ? "Enviando..." : "Crear Evento"}
       </Button>
     </form>
   );
