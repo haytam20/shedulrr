@@ -1,7 +1,5 @@
-import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ArrowRight, Calendar, Clock, LinkIcon } from "lucide-react";
 import TestimonialsCarousel from "@/components/testimonials";
 import Link from "next/link";
@@ -9,135 +7,138 @@ import Link from "next/link";
 const features = [
   {
     icon: Calendar,
-    title: "Create Events",
-    description: "Easily set up and customize your event types",
+    title: "Crear Capacitaciones",
+    description: "Cree y personalice fácilmente sus tipos de eventos",
   },
   {
     icon: Clock,
-    title: "Manage Availability",
-    description: "Define your availability to streamline scheduling",
+    title: "Gestionar Disponibilidad",
+    description: "Defina su disponibilidad para simplificar la planificación",
   },
   {
     icon: LinkIcon,
-    title: "Custom Links",
-    description: "Share your personalized scheduling link",
+    title: "Enlaces Personalizados",
+    description: "Comparta su enlace de planificación personalizado",
   },
 ];
 
 const howItWorks = [
-  { step: "Sign Up", description: "Create your free Schedulrr account" },
+  { step: "Registro", description: "Cree su cuenta gratuita de Vista General" },
   {
-    step: "Set Availability",
-    description: "Define when you're available for meetings",
+    step: "Definir Disponibilidad",
+    description: "Indique cuándo está disponible para reuniones",
   },
   {
-    step: "Share Your Link",
-    description: "Send your scheduling link to clients or colleagues",
+    step: "Compartir Su Enlace",
+    description: "Envíe su enlace a sus clientes o colegas",
   },
   {
-    step: "Get Booked",
-    description: "Receive confirmations for new appointments automatically",
+    step: "Recibir Reservas",
+    description: "Reciba automáticamente confirmaciones para nuevos citas",
   },
 ];
 
 const Home = () => {
   return (
-    <main className="container mx-auto px-4 py-16">
+    <main className="bg-white">
       {/* Hero Section */}
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-24">
-        <div className="lg:w-1/2">
-          <h1 className="text-7xl font-extrabold gradient-title pb-6">
-            Simplify Your Scheduling
-          </h1>
-          <p className="text-xl text-gray-600 mb-10">
-            Schedulrr helps you manage your time effectively. Create events, set
-            your availability, and let others book time with you seamlessly.
-          </p>
-          <Link href={"/dashboard"}>
-            <Button size="lg" className="text-lg">
-              Get Started <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-        </div>
-        <div className="lg:w-1/2 flex justify-center">
-          <div className="relative w-full max-w-md aspect-square">
-            <Image
-              src="/poster.png"
-              alt="Scheduling illustration"
-              layout="fill"
-              objectFit="contain"
-            />
+      <section className="bg-gradient-to-b from-blue-600/10 to-white py-20 sm:py-24">
+        <div className="px-4 lg:px-8 mx-auto max-w-7xl">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div className="lg:w-1/2">
+              <h1 className="text-4xl sm:text-5xl font-bold text-[#2A3142] mb-6">
+                Simplifique Su Planificación
+              </h1>
+              <p className="text-[#5A5F63] text-lg sm:text-xl mb-8 leading-relaxed">
+                Vista General le ayuda a gestionar su tiempo de manera eficiente. Cree eventos, defina
+                su disponibilidad y permita que otros reserven tiempo con usted de forma transparente.
+              </p>
+              <Link href="/dashboard" passHref>
+                <Button
+                  className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-6 py-3 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-600/50"
+                  aria-label="Comenzar ahora"
+                >
+                  Comenzar <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
+            <div className="lg:w-1/2 flex justify-center">
+              <div className="relative w-full max-w-md aspect-square sm:aspect-[4/3]">
+                <Image
+                  src="/poster.png"
+                  alt="Ilustración de planificación"
+                  fill
+                  className="object-contain"
+                  priority
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Key Features Section */}
-      <div className="mb-24">
-        <h2 className="text-3xl font-bold text-center mb-12 text-blue-600">
-          Key Features
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <feature.icon className="w-12 h-12 text-blue-500 mb-4 mx-auto" />
-                <CardTitle className="text-center text-blue-600">
-                  {feature.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center text-gray-600">
-                  {feature.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+      <section className="py-16 sm:py-20">
+        <div className="px-4 lg:px-8 mx-auto max-w-7xl">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#2A3142] mb-4">Funcionalidades Clave</h2>
+            <p className="text-[#5A5F63] max-w-2xl mx-auto text-lg">
+              Descubra cómo nuestra solución puede transformar su gestión del tiempo
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200 text-center"
+              >
+                <div className="w-12 h-12 rounded-full bg-blue-600/10 flex items-center justify-center mx-auto mb-4">
+                  <feature.icon className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-[#2A3142] mb-2">{feature.title}</h3>
+                <p className="text-[#5A5F63] text-sm sm:text-base">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-8 sm:mt-12">
+            <Link href="/features" passHref>
+              <Button
+                className="bg-white text-blue-600 hover:bg-blue-600/10 border border-blue-600 rounded-lg px-6 py-3 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-600/50"
+                aria-label="Ver todas las funcionalidades"
+              >
+                Ver todas las funcionalidades
+              </Button>
+            </Link>
+          </div>
         </div>
-      </div>
-
-      {/* Testimonials Section */}
-      <div className="mb-24">
-        <h2 className="text-3xl font-bold text-center mb-12 text-blue-600">
-          What Our Users Say
-        </h2>
-        <TestimonialsCarousel />
-      </div>
+      </section>
 
       {/* How It Works Section */}
-      <div className="mb-24">
-        <h2 className="text-3xl font-bold text-center mb-12 text-blue-600">
-          How It Works
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {howItWorks.map((step, index) => (
-            <div key={index} className="text-center">
-              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <span className="text-blue-600 font-bold text-xl">
+      <section className="bg-[#F7F9FB] py-16 sm:py-20">
+        <div className="px-4 lg:px-8 mx-auto max-w-7xl">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#2A3142] mb-4">Cómo Funciona</h2>
+            <p className="text-[#5A5F63] max-w-2xl mx-auto text-lg">
+              En solo 4 pasos simples, optimice su gestión de citas
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {howItWorks.map((step, index) => (
+              <div
+                key={index}
+                className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200 text-center"
+              >
+                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center mx-auto text-white font-bold mb-4">
                   {index + 1}
-                </span>
+                </div>
+                <h3 className="text-lg font-semibold text-[#2A3142] mb-2">{step.step}</h3>
+                <p className="text-[#5A5F63] text-sm sm:text-base">{step.description}</p>
               </div>
-              <h3 className="font-semibold text-lg mb-2">{step.step}</h3>
-              <p className="text-gray-600">{step.description}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="bg-blue-600 text-white rounded-lg p-8 text-center">
-        <h2 className="text-3xl font-bold mb-4">
-          Ready to Simplify Your Scheduling?
-        </h2>
-        <p className="text-xl mb-6">
-          Join thousands of professionals who trust Schedulrr for efficient time
-          management.
-        </p>
-        <Link href={"/dashboard"}>
-          <Button size="lg" variant="secondary" className="text-blue-600">
-            Start For Free <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </Link>
-      </div>
+      </section>
     </main>
   );
 };
